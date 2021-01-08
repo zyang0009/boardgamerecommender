@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : Plushiness 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20131117
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Boardgame Recommendatiosn</title>
+	<meta name="a boardgame recommender" content="Recommendation">
+	<meta name="author" content="Zi Yang">
+	<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
+	<link href="../static/css/default.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="../static/css/fonts.css" rel="stylesheet" type="text/css" media="all" />
+	<script type="text/javascript" src="{{ url_for('static', filename='jquery.js') }}">
+	</script>
+	<!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
+
+</head>
+
+<body>
+	<div id="header-wrapper">
+		<div id="header" class="container">
+			<div id="logo">
+				<span class="icon icon-group"></span>
+				<h1><a href="#">Boardgame Recommender</a></h1>
+				<span>Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a></span>
+			</div>
+			<div id="triangle-up"></div>
+		</div>
+	</div>
+	<div id="menu-wrapper">
+		<div id="menu">
+			<ul>
+				<!-- <li class="current_page_item"><a href="#" accesskey="1" title="">Homepage</a></li>
+				<li><a href="#" accesskey="2" title="">Our Clients</a></li> -->
+				<li><a href="https://github.com/aydin-hasanli/recommender-big-four" accesskey="3" title="">Git
+						Project</a></li>
+				<!-- <li><a href="https://github.com/aydin-hasanli/recommender-big-four/graphs/contributors" accesskey="4" title="">About Us: The Big Four</a></li> -->
+				<!-- <li><a href="http://www.omdbapi.com/" accesskey="5" title="">Poster Credits: OMDB API</a></li> -->
+			</ul>
+		</div>
+	</div>
+	<div id="wrapper">
+		<div id="featured-wrapper">
+
+			<div class="container">
+
+				<div class="ebox2">
+					<div class="hexagon"><span class="icon icon-bullhorn"></span></div>
+					<div class="title">
+						<h2>Boardgame Recommender</h2>
+						<!-- <span class="byline">Integer sit amet pede vel arcu aliquet pretium</span> -->
+					</div>
+					<p>This app will recommend boadgames for you based on a game you already like!</p>
+					<p>Please enter a game title and number of games to recommend!</p>
+					<p>For example, "Catan, 10" will recommend 10 games similar to Catan</p>
+
+
+					<div class="row">
+						<div class="form-inline">
+
+							<div class="form-group">
+								<p class="form-control-static">game title:</p>
+							</div>
+							<div class="form-group">
+								<input class="form-control" id="game_title"></input>
+							</div>
+
+							<div class="form-group">
+								<p class="form-control-static">number of games to recommend:</p>
+							</div>
+							<div class="form-group">
+								<input class="form-control" id="num_games"></input>
+							</div>
+
+							<div class="form-group">
+								<p></p>
+								<button id="recommend" class="button">Recommend Boardgames!</button>
+								<button id="clear" class="button">Clear!</button>
+							</div>
+
+						</div>
+
+						<p></p>
+						<h3> The game you picked and its recommended games are: </h3><br />
+						<table id="results_table" class="center"></table>
+
+					</div>
+					<div class="ebox2">
+						<div class="title">
+
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div id="stamp" class="container">
+		<div class="hexagon"><span class="icon icon-wrench"></span></div>
+	</div>
+	<div id="copyright" class="container">
+		<p>&copy; Untitled. All rights reserved. | Photos by <a href="http://fotogrph.com/">Fotogrph</a> | Design by <a
+				href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
+	</div>
+	<script>
+		// let get_game_info = function(game_names) {
+		// 	https://api.boardgameatlas.com/api/search?names={game_names}&client_id=VPSbyZUokf
+		// }
+		let get_input = function () {
+			let game_title = $("input#game_title").val()
+			let num_games = $("input#num_games").val()
+			return {
+				'game_title': game_title,
+				'num_games': parseInt(num_games)
+			}
+		};
+
+		let send_query_json = function(query) {
+			$.ajax({
+				url: '/recommend',
+				contentType: "application/json; charset=utf-8",
+				type: 'POST',
+				success: function (data) {
+					display_recommendations(data);
+					// get_game_info(data);
+				},
+				data: JSON.stringify(query)
+			});
+		};
+
+		function createRecommendTable(tableData) {
+			let table = document.getElementById('results_table');
+			let count = table.rows.length;
+			if (count > 1) {
+				// no duplicate rendering
+				return
+			}
+			let row = {};
+			let cell = {};
+			// create table header
+			row = table.insertRow(-1);
+			// row.insertCell().textContent = "NAME";
+			//   row.insertCell().textContent = "COVER  ";
+			// generate table content
+			tableData.forEach(function (rowData) {
+				row = table.insertRow(-1);
+				cell = row.insertCell();
+				cell.textContent = rowData;
+				// rowData.forEach(function (cellData) {
+				// 	cell = row.insertCell();
+				// 	cell.textContent = cellData;
+				// 	// row.insertCell().textContent = "    "; // make some room
+				// });
+			});
+		}
+
+		let display_recommendations = function (recommendation) {
+			createRecommendTable(recommendation.result);
+
+		};
+
+
+		$(document).ready(function () {
+			$("button#recommend").click(function () {
+				let query = get_input();
+				send_query_json(query);
+			});
+
+			$("button#clear").click(function () {
+				$("#results_table tr").remove();
+				$("input#game_title").val('');
+				$("input#num_games").val('');
+			})
+		})
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+
+
+<body>
+    <p id="catanName"></p>
+    <img id="catanImg" src="" alt="Catan" style="max-height:300px;"/>
+  
+    <script>
+      var parser, xmlDoc, catanImg;
+      var text = req.responseText;
+  
+      parser = new DOMParser();
+      xmlDoc = parser.parseFromString(text, "text/xml");
+  
+      catanName = document.getElementById("catanName");
+      catanName.innerHTML = xmlDoc.getElementsByTagName("name")[0].getAttribute('value');
+  
+      catanImg = document.getElementById("catanImg");
+      catanImg.src = "https:" + xmlDoc.getElementsByTagName("image")[0].childNodes[0].nodeValue;
+      </script>
+  </body>
+  
+  
