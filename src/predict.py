@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import pickle
 import unicodedata
+import re
 from sklearn.metrics.pairwise import cosine_distances, euclidean_distances
 
 def load_data():
@@ -26,7 +27,7 @@ def find_game_id(df, idx):
     return df['game.id'].iloc[idx]
 
 
-def sort_by_distance(idx, probs, distance_funct=cosine_distances, num_games=10):
+def sort_by_distance(idx, probs, num_games):
     #returns array of indices of games most similiar to the provided game index
     return euclidean_distances(probs[idx].reshape(1,-1), probs).ravel().argsort()[:num_games]
 
@@ -47,12 +48,19 @@ def recommend_games(game_title, num_games):
     
     game_index = find_game_idx(df, game_title)
     game_sim = sort_by_distance(game_index, prob_matrix, num_games)
-    game_recs = find_closest_games_names(game_sim, df.name)
-    game_ids = find_game_id(df, game_recs.index)
-    
     rec_df = find_closest_games(game_sim,df)
-    rec_df.to_csv('recs.csv')
-    return list(rec_df.name)
+    # game_recs = find_closest_games_names(game_sim, df.name)
+    # game_ids = find_game_id(df, game_recs.index)
+    
+    to_html = rec_df.drop(axis=1,columns='game.id')
+    to_html['category'] = to_html.category.apply(lambda x: ",".join(x))
+    to_html['mechanic'] = to_html.mechanic.apply(lambda x: ",".join(x))
+    to_html['short_desc'] = to_html.description.apply(lambda x: ' '.join(re.split(r'(?<=[.:;])\s', x)[:4]))
+    to_html.drop(axis=1,columns='description',inplace=True)
+    return to_html
+  
+    # rec_df.to_csv('recs.csv')
+    # return list(rec_df.name)
 
 if __name__ == '__main__':
-    print(recommend_games('Catan',10))
+    pass

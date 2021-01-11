@@ -92,23 +92,10 @@ Released   : 20131117
 
 						<p></p>
 						<h3> The game you picked and its recommended games are: </h3><br />
-						<!-- <table id="results_table" class="center"></table> -->
-						<table id="results_table" class="center">
-							<tr>
-								{% for header in headings %}
-								<th>{{ header }}</th>
-								{% endfor %}
-							</tr>
-							{% for row in data %}
-							<tr>
-								{% for cell in row %}
-								<td>
-									{{ cell }}
-								</td>
-								{% endfor %}
-							</tr>
-							{% endfor %}
-						</table>
+						
+						<div id="result">
+
+						</div>
 					</div>
 					<div class="ebox2">
 						<div class="center">
@@ -144,47 +131,14 @@ Released   : 20131117
 				url: '/recommend',
 				contentType: "application/json; charset=utf-8",
 				type: 'POST',
-				success: function (data) {
-					display_recommendations(data);
-					
+				success: function (resp) {
+					// console.log($("div#result"))
+					$("div#result").html(resp)
+					// console.log($("div#result"))	
 				},
 				data: JSON.stringify(query)
 			});
 		};
-		function createRecommendTableDetails(tableData){
-
-		}
-		function createRecommendTable(tableData) {
-			let table = document.getElementById('results_table');
-			let count = table.rows.length;
-			if (count > 1) {
-				// no duplicate rendering
-				return
-			}
-			let row = {};
-			let cell = {};
-			// create table header
-			row = table.insertRow(-1);
-			// row.insertCell().textContent = "NAME";
-			//   row.insertCell().textContent = "COVER  ";
-			// generate table content
-			tableData.forEach(function (rowData) {
-				row = table.insertRow(-1);
-				cell = row.insertCell();
-				cell.textContent = rowData;
-				// rowData.forEach(function (cellData) {
-				// 	cell = row.insertCell();
-				// 	cell.textContent = cellData;
-				// 	// row.insertCell().textContent = "    "; // make some room
-				// });
-			});
-		}
-
-		let display_recommendations = function (recommendation) {
-			createRecommendTable(recommendation.result);
-
-		};
-
 
 		$(document).ready(function () {
 			$("button#recommend").click(function () {
