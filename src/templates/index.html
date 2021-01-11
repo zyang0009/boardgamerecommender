@@ -14,7 +14,7 @@ Released   : 20131117
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Boardgame Recommendatiosn</title>
+	<title>Boardgame Recommendations</title>
 	<meta name="a boardgame recommender" content="Recommendation">
 	<meta name="author" content="Zi Yang">
 	<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
@@ -92,12 +92,27 @@ Released   : 20131117
 
 						<p></p>
 						<h3> The game you picked and its recommended games are: </h3><br />
-						<table id="results_table" class="center"></table>
-
+						<!-- <table id="results_table" class="center"></table> -->
+						<table id="results_table" class="center">
+							<tr>
+								{% for header in headings %}
+								<th>{{ header }}</th>
+								{% endfor %}
+							</tr>
+							{% for row in data %}
+							<tr>
+								{% for cell in row %}
+								<td>
+									{{ cell }}
+								</td>
+								{% endfor %}
+							</tr>
+							{% endfor %}
+						</table>
 					</div>
 					<div class="ebox2">
-						<div class="title">
-
+						<div class="center">
+							
 							</p>
 						</div>
 					</div>
@@ -114,9 +129,7 @@ Released   : 20131117
 				href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
 	</div>
 	<script>
-		// let get_game_info = function(game_names) {
-		// 	https://api.boardgameatlas.com/api/search?names={game_names}&client_id=VPSbyZUokf
-		// }
+
 		let get_input = function () {
 			let game_title = $("input#game_title").val()
 			let num_games = $("input#num_games").val()
@@ -133,12 +146,14 @@ Released   : 20131117
 				type: 'POST',
 				success: function (data) {
 					display_recommendations(data);
-					// get_game_info(data);
+					
 				},
 				data: JSON.stringify(query)
 			});
 		};
+		function createRecommendTableDetails(tableData){
 
+		}
 		function createRecommendTable(tableData) {
 			let table = document.getElementById('results_table');
 			let count = table.rows.length;

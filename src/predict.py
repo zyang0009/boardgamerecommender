@@ -28,11 +28,16 @@ def find_game_id(df, idx):
 
 def sort_by_distance(idx, probs, distance_funct=cosine_distances, num_games=10):
     #returns array of indices of games most similiar to the provided game index
-    return euclidean_distances(probs[idx].reshape(1,-1), probs).ravel().argsort()[:10]
+    return euclidean_distances(probs[idx].reshape(1,-1), probs).ravel().argsort()[:num_games]
 
 def find_closest_games_names(sorted_distances, names):
     #finds names of an array of game idx's
     name_array = names.iloc[sorted_distances]
+    return name_array
+
+def find_closest_games(sorted_distances, gamedata_df):
+    #finds names of an array of game idx's
+    name_array = gamedata_df.iloc[sorted_distances]
     return name_array
 
 def recommend_games(game_title, num_games):
@@ -45,8 +50,8 @@ def recommend_games(game_title, num_games):
     game_recs = find_closest_games_names(game_sim, df.name)
     game_ids = find_game_id(df, game_recs.index)
     
-    rec_df = pd.DataFrame({'id':game_ids,'name':game_recs})
-    
+    rec_df = find_closest_games(game_sim,df)
+    rec_df.to_csv('recs.csv')
     return list(rec_df.name)
 
 if __name__ == '__main__':

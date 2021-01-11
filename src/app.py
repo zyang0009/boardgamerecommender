@@ -16,17 +16,13 @@ def recommend():
     game_list = predict.recommend_games(game_title, num_games)
     return jsonify({'result': game_list})
 
-# def _recommend_game(game_title, num_games)
-#     """Generate recommended games as a list of game names. 
-#     Args:
-#         game_title (str) : search string of user game
-#         num_games (int) : number of similiar games to recommend
-#     Returns:
-#         a list of game names
-#     """
-    
-    game_list = _recommend_game(game_title, num_games)
+@app.route("/recommend", methods=['POST'])
+def show_table():
+    data = pd.read_csv('recs.csv',)
+    data.drop('id',inplace=True)
+    headings = ("Name", "Description","Categories","Mechanics")
 
+    return render_template('index.html', headings=headings, data=data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)
