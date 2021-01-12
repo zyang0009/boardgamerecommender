@@ -58,6 +58,7 @@ table
 	text-align:left;
 	color: rgb(0, 0, 0);
 	width: 95%;
+	font: 14px;
 }
 
 th{
@@ -70,7 +71,7 @@ tr{
 }
 tr:nth-child(even)
 {
-	background-color: lightblue;
+	background-color: #e4c977;
 	font:rgb(0,0,0);
 }
 tr td:first-child {
