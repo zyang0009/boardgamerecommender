@@ -53,6 +53,11 @@ a:hover
 	text-decoration: none;
 }
 
+
+tr:nth-child(even)
+{
+	background-color: lightblue;
+}
 .container
 {
 	margin: 0px auto;
@@ -555,6 +560,7 @@ ul.contact li a.icon-rss:before
 {
 	padding: 0em 7em;
 }
+
 
 /*********************************************************************************/
 /* Sidebar                                                                       */
