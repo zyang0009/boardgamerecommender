@@ -39,9 +39,6 @@ p
 	line-height: 180%;
 }
 
-strong
-{
-}
 
 a
 {
@@ -53,10 +50,36 @@ a:hover
 	text-decoration: none;
 }
 
+table
+{
+	border: 2px solid black;
+	border-spacing: 10px;
+	background-color: whitesmoke;
+	text-align:left;
+	color: rgb(0, 0, 0);
+	width: 95%;
+}
 
+th{
+	background-color: lightgray;
+	font-weight: bold;
+
+}
+tr{
+	padding: 5px;
+}
 tr:nth-child(even)
 {
 	background-color: lightblue;
+	font:rgb(0,0,0);
+}
+tr td:first-child {
+	text-align: center;
+}
+
+tr:hover
+{
+	background-color:lightgrey;
 }
 .container
 {

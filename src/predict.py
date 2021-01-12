@@ -3,6 +3,7 @@ import numpy as np
 import pickle
 import unicodedata
 import re
+import lxml.html
 from sklearn.metrics.pairwise import cosine_distances, euclidean_distances
 
 def load_data():
@@ -56,11 +57,10 @@ def recommend_games(game_title, num_games):
     to_html['category'] = to_html.category.apply(lambda x: ",".join(x))
     to_html['mechanic'] = to_html.mechanic.apply(lambda x: ",".join(x))
     to_html['short_desc'] = to_html.description.apply(lambda x: ' '.join(re.split(r'(?<=[.:;])\s', x)[:4]))
+    to_html['short_desc'] = to_html['short_desc'].apply(lambda x: lxml.html.fromstring(x).text_content())
+
     to_html.drop(axis=1,columns='description',inplace=True)
     return to_html
-  
-    # rec_df.to_csv('recs.csv')
-    # return list(rec_df.name)
 
 if __name__ == '__main__':
     pass
