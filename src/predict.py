@@ -48,7 +48,7 @@ def recommend_games(game_title, num_games):
     prob_matrix = load_model()
     
     game_index = find_game_idx(df, game_title)
-    game_sim = sort_by_distance(game_index, prob_matrix, num_games)
+    game_sim = sort_by_distance(game_index, prob_matrix, num_games+1)
     rec_df = find_closest_games(game_sim,df)
     # game_recs = find_closest_games_names(game_sim, df.name)
     # game_ids = find_game_id(df, game_recs.index)

@@ -62,8 +62,12 @@ table
 }
 
 th{
-	background-color: lightgray;
-	font-weight: bold;
+	font-size: 1.0em;
+	font-weight: 600;
+	text-transform: uppercase;
+	outline: 0;
+	color: #FFF;
+	background: #3D3D3D;
 
 }
 tr{
@@ -71,7 +75,7 @@ tr{
 }
 tr:nth-child(even)
 {
-	background-color: #e4c977;
+	background-color: #3697af;
 	font:rgb(0,0,0);
 }
 tr td:first-child {
@@ -490,6 +494,7 @@ ul.contact li a.icon-rss:before
 		text-transform: uppercase;
 		outline: 0;
 		color: #FFF;
+	
 	}
 	
 	#menu li:hover a, #menu li.active a, #menu li.active span
