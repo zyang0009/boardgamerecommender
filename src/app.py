@@ -20,13 +20,5 @@ def recommend():
 
     return render_template('recommend.html', headings=headings, data=data)
 
-# @app.route('/recommend', methods=['POST'])
-# def show_table():
-#     data = pd.read_csv('recs.csv',)
-#     data.drop('id',inplace=True)
-#     headings = ("Name", "Description","Categories","Mechanics")
-
-#     return render_template('index.html', headings=headings, data=data.to_html)
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)
