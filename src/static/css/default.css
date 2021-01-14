@@ -75,7 +75,7 @@ tr{
 }
 tr:nth-child(even)
 {
-	background-color: #3697af;
+	background-color: #7bd2e7;
 	font:rgb(0,0,0);
 }
 tr td:first-child {

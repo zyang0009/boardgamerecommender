@@ -17,12 +17,12 @@ def preprocess_text(text):
     text = re.sub(r'\d+', '', text)
     return text
 
-def build_model():
-    pass
+# def build_model():
+#     pass
 
-def save_model(prob_matrix, name='prob_matrix');
-    with open(f'../models/{name}.pickle', 'wb') as f:
-        pickle.dump(prob_matrix,f), name)
+# def save_model(prob_matrix, name='prob_matrix'):
+#     with open(f'../models/{name}.pickle', 'wb') as f:
+#         pickle.dump(prob_matrix,f), name)
 
 
 if __name__ == '__main__':
