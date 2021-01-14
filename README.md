@@ -50,7 +50,7 @@ Note: The Descriptions of games here are shortened to a couple sentences for bre
 
 As shown in the highlighted words of the table, the recommender will consider similarities in theme, mechanics, setting, and category.
 
-Try it out yourself <a href="#">here</a>!!
+Try it out yourself <a href="http://3.16.11.139:8080/">here</a>!!
 
 ## Future Work
 For the future, I'd like to improve the recommender by
