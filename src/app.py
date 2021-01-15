@@ -14,10 +14,10 @@ def recommend():
     user_data = request.json
     game_title, num_games = user_data['game_title'], user_data['num_games']
     data = predict.recommend_games(game_title, int(num_games))
-    if data == None:
-        headings = ["Error!"]
-        nogame = [["Sorry, we could not find that game! Try another one?"]]
-        return render_template('recommend.html', headings=headings, data=nogame)
+    # if data == None:
+    #     headings = ["Error!"]
+    #     nogame = [["Sorry, we could not find that game! Try another one?"]]
+    #     return render_template('recommend.html', headings=headings, data=nogame)
     headings = ("Name","Categories","Mechanics","Description")
     data = data.values.tolist()
 

@@ -20,10 +20,10 @@ def load_model():
 
 def find_game_idx(df, game_title):
     #returns the first found index of a game given a name search string query
-    try:
-        df.name[df.name.str.contains(game_title)].index[0]
-    except:
-        return None
+    # try:
+    return df.name[df.name.str.contains(game_title)].index[0]
+    # except:
+    #     return None
 
 
 def find_game_id(df, idx):
@@ -51,8 +51,8 @@ def recommend_games(game_title, num_games):
     prob_matrix = load_model()
     
     game_index = find_game_idx(df, game_title)
-    if game_index == None:
-        return None
+    # if game_index == None:
+    #     return None
     game_sim = sort_by_distance(game_index, prob_matrix, num_games+1)
     rec_df = find_closest_games(game_sim,df)
     # game_recs = find_closest_games_names(game_sim, df.name)
