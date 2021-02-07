@@ -1,6 +1,5 @@
 # Boardgame Recommendations
-A recommender for boardgames based on individual preference.  <a href src="http://3.16.11.139:8080/">Click to Try Recommender</a>
-
+A recommender for boardgames based on individual preference.  [Click to Try Recommender](http://3.16.11.139:8080/)
 
 
 <img src='img/visuals/collage1.jpg' align='center'>  
